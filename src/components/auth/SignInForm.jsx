@@ -104,7 +104,7 @@ const SignInForm = () => {
                 </div>
 
                 <Link
-                  to="/forgot-password"
+                  to="/forgot password"
                   className="text-sm font-medium text-primary-green hover:text-secondary-green"
                 >
                   Forgot your password?
