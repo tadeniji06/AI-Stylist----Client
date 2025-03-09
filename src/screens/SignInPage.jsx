@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import SignInForm from "../components/auth/SignInForm";
 
 const SignInPage = () => {
   return (
-    <div>SignInPage</div>
-  )
-}
+    <div className="bg-gray-50">
+      <SignInForm />
+    </div>
+  );
+};
 
-export default SignInPage
+export default SignInPage;

@@ -128,17 +128,17 @@ const Welcome = () => {
         </div>
 
         <div className='absolute bottom-24 left-1/2 transform -translate-x-1/2 flex flex-wrap justify-center gap-4'>
-          {/* <div className='bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-white flex items-center'>
+          <div className='bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-white flex items-center'>
             <Icon
               icon='fluent:weather-sunny-48-regular'
               className='mr-2'
             />
             Weather-Smart
-          </div> */}
-          {/* <div className='bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-white flex items-center'>
+          </div>
+          <div className='bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-white flex items-center'>
             <Icon icon='mdi:mood' className='mr-2' />
             Mood-Based
-          </div> */}
+          </div>
           <div className='bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-white flex items-center'>
             <Icon icon='carbon:ai-status' className='mr-2' />
             AI-Powered
