@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import gsap from "gsap";
+import toast from 'react-hot-toast';
 import { Icon } from "@iconify/react";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { resetPassword } from "../functions/authFunctions";
 import Button from "../components/ui/Button";
 
 const ChangePasswordSchema = Yup.object().shape({
@@ -64,10 +67,15 @@ const ChangePassword = () => {
             newPassword: "",
           }}
           validationSchema={ChangePasswordSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              await resetPassword(values.email, values.otpCode, values.newPassword);
+              toast.success('Password successfully reset');
+              navigate("/signin");
+            } catch (error) {
+              toast.error(error.response?.data?.message || 'Failed to reset password');
+            }
             setSubmitting(false);
-            navigate("/signin");
           }}
         >
           {({ errors, touched }) => (

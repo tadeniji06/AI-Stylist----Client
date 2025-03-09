@@ -4,24 +4,13 @@ import gsap from "gsap";
 import Button from "../ui/Button";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
-const SignUpSchema = Yup.object().shape({
-  nickname: Yup.string().required("Nickname is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string()
-    .min(5, "Too short!")
-    .required("Password is required"),
-  age: Yup.number()
-    .required("Age is required")
-    .positive("Must be a valid age"),
-  country: Yup.string().required("Country is required"),
-  state: Yup.string().required("State is required"),
-  favoriteColor: Yup.string().required("Favorite color is required"),
-  gender: Yup.string().required("Gender is required"),
-});
+import { signUp } from "../../functions/authFunctions";
+import { SignUpSchema } from "../../utils/validation";
 
 const SignUpForm = () => {
+  const navigate = useNavigate();
   useEffect(() => {
     gsap.set([".form-container", ".form-field", ".submit-button"], {
       opacity: 0,
@@ -68,12 +57,28 @@ const SignUpForm = () => {
             gender: "",
           }}
           validationSchema={SignUpSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              const response = await signUp(
+                values.nickname,
+                values.email,
+                values.password,
+                values.age,
+                values.country,
+                values.state,
+                values.favoriteColor,
+                values.gender
+              );
+              // 3 days in seconds = 3 * 24 * 60 * 60 = 259200
+              document.cookie = `token=${response.token}; path=/; max-age=259200; secure; samesite=strict`;
+              navigate("/dashboard");
+            } catch (error) {
+              console.error("Registration failed:", error);
+            }
             setSubmitting(false);
           }}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, isSubmitting }) => (
             <Form className='mt-8 space-y-6'>
               <div className='rounded-md shadow-sm space-y-4'>
                 {[
@@ -140,6 +145,7 @@ const SignUpForm = () => {
                   type='submit'
                   className='submit-button opacity-0 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-green hover:bg-secondary-green focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-green'
                   title='Sign Up'
+                  isLoading={isSubmitting}
                 />
               </div>
             </Form>

@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 import gsap from "gsap";
 import { Icon } from "@iconify/react";
 import { useNavigate } from "react-router-dom";
+
+import { requestPasswordReset } from "../functions/authFunctions";
 import Button from "../components/ui/Button";
 
 const EmailSchema = Yup.object().shape({
@@ -49,13 +52,17 @@ const ForgotPassword = () => {
         <Formik
           initialValues={{ email: "" }}
           validationSchema={EmailSchema}
-          onSubmit={(values, { setSubmitting }) => {
-            console.log(values);
-            setEmailSent(true);
+          onSubmit={async (values, { setSubmitting }) => {
+            try {
+              await requestPasswordReset(values.email);
+              toast.success('Reset code sent to your email');
+              navigate("/change password", {
+                state: { email: values.email },
+              });
+            } catch (error) {
+              toast.error(error.response?.data?.message || 'Failed to send reset code');
+            }
             setSubmitting(false);
-            navigate("/change password", {
-              state: { email: values.email },
-            });
           }}
         >
           {({ errors, touched }) => (
