@@ -64,11 +64,11 @@ const router = createBrowserRouter([
             element: <SignUpPage />,
           },
           {
-            path: "/forgot-password",
+            path: "/forgot password",
             element: <ForgotPassWord />,
           },
           {
-            path: "/change-password",
+            path: "/change password",
             element: <ChangePassWord />,
           },
         ],
