@@ -18,6 +18,7 @@ const useUser = () => {
       try {
         setLoading(true);
         const res = await getCurrentUser();
+        // console.log("Fetched user data:", res);
         setUser(res.user);
       } catch (err) {
         setError(err);

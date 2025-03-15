@@ -20,6 +20,7 @@ import WardRobe from "../screens/WardRobe";
 import OutfitSuggestions from "../screens/OutfitSuggestions";
 import StyleReccomendation from "../screens/StyleReccomendation";
 import WishList from "../screens/WishList";
+import Premium from "../screens/Premium";
 
 //private route
 const ProtectedRoute = () => {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
           {
             path: "/wishlist",
             element: <WishList />,
+          },
+          {
+            path: "/premium",
+            element: <Premium />,
           },
         ],
       },
