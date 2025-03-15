@@ -12,6 +12,7 @@ import SignInPage from "../screens/SignInPage";
 import SignUpPage from "../screens/SignUpPage";
 import OnboardingPage from "../screens/OnboardingPage";
 import NotFound from "../screens/NotFound";
+import Settings from "../screens/Settings";
 
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated } = useAuth();
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
         element: (
           <PublicRoute>
             <SignInPage />
+          </PublicRoute>
+        ),
+      },
+      {
+        path: "/settings",
+        element: (
+          <PublicRoute>
+            <Settings />
           </PublicRoute>
         ),
       },
