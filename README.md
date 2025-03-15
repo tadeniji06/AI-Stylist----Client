@@ -23,7 +23,7 @@ An intelligent fashion assistant that helps users curate outfits, manage their w
 - **EmailJS API** (Handles email notifications like password reset OTPs)
 
 ### Frontend
-- **React.js / React Native** (Dynamic and interactive UI/UX)
+- **React.js (Dynamic and interactive UI/UX)
 - **Tailwind CSS** (Styling)
 - **Framer Motion & GSAP** (Animations)
 - **Redux Toolkit / React Query** (State & API data management)
@@ -32,60 +32,7 @@ An intelligent fashion assistant that helps users curate outfits, manage their w
 - **OpenAI API** (Intelligent fashion recommendations)
 - **Weather API** (Live weather data for styling suggestions)
 
-## Installation
 
-### Prerequisites
-- Node.js installed
-- MongoDB set up (Local or Cloud)
-- `.env` file with necessary API keys
-
-### Steps
-1. Clone the repo:
-   ```sh
-   git clone https://github.com/yourusername/ai-stylist.git
-   ```
-2. Install dependencies:
-   ```sh
-   cd ai-stylist
-   npm install
-   ```
-3. Set up `.env` file with:
-   ```env
-   MONGO_URI=your_mongodb_connection_string
-   JWT_SECRET=your_jwt_secret
-   EMAILJS_API_KEY=your_emailjs_key
-   OPENAI_API_KEY=your_openai_key
-   WEATHER_API_KEY=your_weather_api_key
-   ```
-4. Start the backend server:
-   ```sh
-   npm run dev
-   ```
-5. Navigate to the frontend folder and start the client:
-   ```sh
-   cd client
-   npm install
-   npm start
-   ```
-
-## API Routes
-
-### Auth & User Management
-- `POST /api/auth/signup` - Register a new user
-- `POST /api/auth/login` - Authenticate user & return token
-- `POST /api/auth/requestReset` - Request password reset OTP
-- `POST /api/auth/resetPassword` - Reset password with OTP
-- `GET /api/user/:id` - Fetch user profile with wardrobe, outfits, and wishlist
-
-### Wardrobe & Outfit
-- `POST /api/wardrobe/add` - Add a clothing item
-- `GET /api/wardrobe/` - Get all clothing items
-- `POST /api/outfit/create` - Generate and save an outfit
-- `GET /api/outfit/` - Fetch user’s saved outfits
-
-### Wishlist
-- `POST /api/wishlist/add` - Add an item to wishlist
-- `GET /api/wishlist/` - Retrieve all wishlist items
 
 ## Roadmap
 - [ ] AI outfit suggestions based on body type
