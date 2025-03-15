@@ -21,4 +21,11 @@ export const socials = [
   },
 ];
 
-
+export const navItems = [
+  { name: "Dashboard", icon: "mdi:view-dashboard", path: "/dashboard" },
+  { name: "My Wardrobe", icon: "mdi:hanger", path: "/wardrobe" },
+  { name: "Outfit Suggestions", icon: "mdi:tshirt-crew", path: "/outfits" },
+  { name: "Style Recommendations", icon: "mdi:star", path: "/recommendations" },
+  { name: "Wishlist", icon: "mdi:heart", path: "/wishlist" },
+  { name: "Settings", icon: "mdi:cog", path: "/settings" },
+];

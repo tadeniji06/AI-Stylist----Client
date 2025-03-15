@@ -2,9 +2,12 @@ import {
   createBrowserRouter,
   RouterProvider,
   Navigate,
+  Outlet,
 } from "react-router-dom";
 import { useAuth } from "../context/Useauth";
 import Layout from "../layouts/Layout";
+
+// Screens
 import DashBoard from "../screens/DashBoard";
 import ForgotPassWord from "../screens/ForgotPassWord";
 import ChangePassWord from "../screens/ChangePassWord";
@@ -13,77 +16,96 @@ import SignUpPage from "../screens/SignUpPage";
 import OnboardingPage from "../screens/OnboardingPage";
 import NotFound from "../screens/NotFound";
 import Settings from "../screens/Settings";
+import WardRobe from "../screens/WardRobe";
+import OutfitSuggestions from "../screens/OutfitSuggestions";
+import StyleReccomendation from "../screens/StyleReccomendation";
+import WishList from "../screens/WishList";
 
-const ProtectedRoute = ({ children }) => {
+//private route
+const ProtectedRoute = () => {
   const { isAuthenticated } = useAuth();
-  return isAuthenticated ? children : <Navigate to='/signin' />;
+
+  if (!isAuthenticated) {
+    return <Navigate to='/signin' replace />;
+  }
+
+  return <Outlet />;
 };
 
-const PublicRoute = ({ children }) => {
+// public route
+const PublicRoute = () => {
   const { isAuthenticated } = useAuth();
-  return !isAuthenticated ? children : <Navigate to='/dashboard' />;
+
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' replace />;
+  }
+
+  return <Outlet />;
 };
 
 const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
+      // Public routes (accessible only when not logged in)
       {
-        path: "/",
-        element: (
-          <PublicRoute>
-            <OnboardingPage />
-          </PublicRoute>
-        ),
+        element: <PublicRoute />,
+        children: [
+          {
+            path: "/",
+            element: <OnboardingPage />,
+          },
+          {
+            path: "/signin",
+            element: <SignInPage />,
+          },
+          {
+            path: "/signup",
+            element: <SignUpPage />,
+          },
+          {
+            path: "/forgot-password",
+            element: <ForgotPassWord />,
+          },
+          {
+            path: "/change-password",
+            element: <ChangePassWord />,
+          },
+        ],
       },
+
+      // Protected routes (require authentication)
       {
-        path: "/dashboard",
-        element: (
-          <ProtectedRoute>
-            <DashBoard />
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/dashboard",
+            element: <DashBoard />,
+          },
+          {
+            path: "/settings",
+            element: <Settings />,
+          },
+          {
+            path: "/wardrobe",
+            element: <WardRobe />,
+          },
+          {
+            path: "/outfits",
+            element: <OutfitSuggestions />,
+          },
+          {
+            path: "/recommendations",
+            element: <StyleReccomendation />,
+          },
+          {
+            path: "/wishlist",
+            element: <WishList />,
+          },
+        ],
       },
-      {
-        path: "/signin",
-        element: (
-          <PublicRoute>
-            <SignInPage />
-          </PublicRoute>
-        ),
-      },
-      {
-        path: "/settings",
-        element: (
-          <PublicRoute>
-            <Settings />
-          </PublicRoute>
-        ),
-      },
-      {
-        path: "/signup",
-        element: (
-          <PublicRoute>
-            <SignUpPage />
-          </PublicRoute>
-        ),
-      },
-      {
-        path: "/change password",
-        element: (
-          <PublicRoute>
-            <ChangePassWord />
-          </PublicRoute>
-        ),
-      },
-      {
-        path: "/forgot password",
-        element: (
-          <PublicRoute>
-            <ForgotPassWord />
-          </PublicRoute>
-        ),
-      },
+
+      // Routes accessible to all users
       {
         path: "*",
         element: <NotFound />,
