@@ -1,5 +1,7 @@
 # AI-Powered Personal Stylist
 
+link: https://ai-stylist.netlify.app/
+
 An intelligent fashion assistant that helps users curate outfits, manage their wardrobe, and get personalized styling recommendations based on their preferences, mood, occasion, and weather.
 
 ## Features
